@@ -1,5 +1,6 @@
 package me.ruslanys.telegraff.core.filter
 
+import me.ruslanys.telegraff.core.annotation.TelegramFilterOrder
 import me.ruslanys.telegraff.core.component.TelegramApi
 import me.ruslanys.telegraff.core.dsl.Handler
 import me.ruslanys.telegraff.core.dsl.HandlerState
@@ -9,10 +10,9 @@ import me.ruslanys.telegraff.core.dto.TelegramMessage
 import me.ruslanys.telegraff.core.dto.request.*
 import me.ruslanys.telegraff.core.exception.ValidationException
 import org.slf4j.LoggerFactory
-import org.springframework.core.annotation.Order
 import java.util.concurrent.ConcurrentHashMap
 
-@Order(1)
+@TelegramFilterOrder(1)
 class HandlersFilter(private val telegramApi: TelegramApi, handlersFactory: HandlersFactory) : TelegramFilter {
 
     private val handlers: Map<String, Handler> = handlersFactory.getHandlers()

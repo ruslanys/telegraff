@@ -6,10 +6,12 @@ import org.springframework.context.ApplicationListener
 
 
 class DefaultTelegramFilterChain(
-        telegramFiltersFactory: TelegramFiltersFactory
+        private val telegramFiltersFactory: TelegramFiltersFactory
 ) : TelegramFilterChain, ApplicationListener<TelegramUpdateEvent> {
 
-    private val iterator: Iterator<TelegramFilter> = telegramFiltersFactory.getFilters().iterator()
+    private val iterator: Iterator<TelegramFilter> by lazy {
+        telegramFiltersFactory.getFilters().iterator()
+    }
 
     override fun onApplicationEvent(event: TelegramUpdateEvent) {
         if (event.update.message != null) { // only new messages are supported

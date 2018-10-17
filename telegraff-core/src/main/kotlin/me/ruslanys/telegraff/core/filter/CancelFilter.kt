@@ -1,11 +1,11 @@
 package me.ruslanys.telegraff.core.filter
 
+import me.ruslanys.telegraff.core.annotation.TelegramFilterOrder
 import me.ruslanys.telegraff.core.component.TelegramApi
 import me.ruslanys.telegraff.core.dto.TelegramMessage
 import me.ruslanys.telegraff.core.dto.request.MarkdownMessage
-import org.springframework.core.annotation.Order
 
-@Order(0)
+@TelegramFilterOrder(0)
 class CancelFilter(private val telegramApi: TelegramApi, private val handlersFilter: HandlersFilter): TelegramFilter {
 
     override fun handleMessage(message: TelegramMessage, chain: TelegramFilterChain) {
