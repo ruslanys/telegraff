@@ -7,14 +7,14 @@
 Gradle: 
 
 ```
-compile("me.ruslanys:telegraff-starter:0.1.0")
+compile("me.ruslanys.telegraff:telegraff-starter:0.1.0")
 ```
 
 Maven:
 
 ```
 <dependency>
-    <groupId>me.ruslanys</groupId>
+    <groupId>me.ruslanys.telegraff</groupId>
     <artifactId>telegraff-starter</artifactId>
     <version>0.1.0</version>
 </dependency>
@@ -32,54 +32,46 @@ telegram.webhook-endpount-url=
 ## Использование
 
 ```kotlin
-val exampleHandler = handler {
-    commands("/taxi")
-    
-    step<String> {
-        key("locationFrom")
-        
-        question { 
+enum class PaymentMethod {
+    CARD, CASH
+}
+
+handler("/taxi", "такси") {
+    step<String>("locationFrom") {
+        question {
             MarkdownMessage("Откуда поедем?")
         }
     }
-    
-    step<String> {
-        key("locationTo")
-        
-        question { 
+
+    step<String>("locationTo") {
+        question {
             MarkdownMessage("Куда поедем?")
         }
     }
-    
-    step<PaymentMethod> {
-        key("paymentMethod")
-        
-        question { 
+
+    step<PaymentMethod>("paymentMethod") {
+        question {
             MarkdownMessage("Оплата картой или наличкой?", "Картой", "Наличкой")
         }
-        
-        validation { 
-            when (it) {
-                "Картой" -> PaymentMethod.CARD
-                "Наличкой" -> PaymentMethod.CASH
-                else -> throw ValidationException()
+
+        validation {
+            when (it.toLowerCase()) {
+                "картой" -> PaymentMethod.CARD
+                "наличкой" -> PaymentMethod.CASH
+                else -> throw ValidationException("Пожалуйста, выбери один из вариантов")
             }
         }
     }
-    
-    processor { state, answers -> 
+
+    process { state, answers ->
         val from = answers["locationFrom"] as String
         val to = answers["locationTo"] as String
         val paymentMethod = answers["paymentMethod"] as PaymentMethod
-        
-        // TODO: Business logic
-        
+
+        // Business logic
+
         MarkdownMessage("Заказ принят. Поедем из $from в $to. Оплата $paymentMethod.")
     }
-}
-
-enum class PaymentMethod {
-    CARD, CASH
 }
 ```
 
