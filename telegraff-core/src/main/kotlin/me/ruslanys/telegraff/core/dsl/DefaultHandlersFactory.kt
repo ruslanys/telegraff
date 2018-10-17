@@ -15,7 +15,9 @@ class DefaultHandlersFactory(scenariosPath: String) : HandlersFactory {
 
     init {
         val factory: ScriptEngineFactory = KotlinJsr223JvmLocalScriptEngineFactory()
-        val scenarios = File(javaClass.classLoader.getResource(scenariosPath).toURI())
+        val resourcePath = javaClass.classLoader.getResource(scenariosPath) ?: throw IllegalArgumentException("Scenarios folder does not exist!")
+
+        val scenarios = File(resourcePath.toURI())
                 .listFiles(FileFilter {
                     it.extension == "kts"
                 })
