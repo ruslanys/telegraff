@@ -12,7 +12,7 @@ import org.slf4j.LoggerFactory
 import org.springframework.core.annotation.Order
 import java.util.concurrent.ConcurrentHashMap
 
-@Order(0)
+@Order(1)
 class HandlersFilter(private val telegramApi: TelegramApi, handlersFactory: HandlersFactory) : TelegramFilter {
 
     private val handlers: Map<String, Handler> = handlersFactory.getHandlers()
@@ -61,8 +61,8 @@ class HandlersFilter(private val telegramApi: TelegramApi, handlersFactory: Hand
         val answer = try {
             validation(text)
         } catch (e: ValidationException) {
-            sendResponse(message.chat, MarkdownMessage(e.message))
-            return currentStep.question(state)
+            val question = currentStep.question(state)
+            return TelegramMessageSendRequest(0, e.message, TelegramParseMode.MARKDOWN, question.replyKeyboard)
         }
         state.answers[currentStep.key] = answer!!
 
