@@ -6,6 +6,7 @@ plugins {
     id 'org.jetbrains.kotlin.kapt' version '1.2.71'
     id 'org.jetbrains.kotlin.plugin.spring' version '1.2.71'
     id 'org.springframework.boot' version '2.0.6.RELEASE'
+    id 'com.jfrog.bintray' version '1.8.4'
 }
 
 ext {
@@ -14,6 +15,16 @@ ext {
 }
 
 allprojects {
+    group = 'me.ruslanys.telegraff'
+    version = '1.0.0-RC.2'
+
+    repositories {
+        jcenter()
+        mavenCentral()
+    }
+}
+
+subprojects {
     apply plugin: 'maven'
     apply plugin: 'java'
     apply plugin: 'idea'
@@ -22,16 +33,9 @@ allprojects {
     apply plugin: 'kotlin-spring'
     apply plugin: 'org.springframework.boot'
     apply plugin: 'io.spring.dependency-management'
-
-    group = 'me.ruslanys.telegraff'
-    version = '0.1.0-SNAPSHOT'
+    apply plugin: 'com.jfrog.bintray'
 
     sourceCompatibility = JavaVersion.VERSION_1_8
-
-    repositories {
-        jcenter()
-        mavenCentral()
-    }
 
     dependencies {
         // Kotlin
@@ -39,11 +43,15 @@ allprojects {
         compile("org.jetbrains.kotlin:kotlin-reflect")
         compile("org.jetbrains.kotlin:kotlin-script-util")
         compile("org.jetbrains.kotlin:kotlin-compiler-embeddable")
-        compile('com.fasterxml.jackson.module:jackson-module-kotlin')
+        compile("com.fasterxml.jackson.module:jackson-module-kotlin")
 
         // Tests
-        testCompile('org.springframework.boot:spring-boot-starter-test')
+        testCompile("org.springframework.boot:spring-boot-starter-test")
         testCompile("org.jetbrains.kotlin:kotlin-test")
+    }
+
+    dependencyManagement {
+        imports { mavenBom("org.springframework.boot:spring-boot-dependencies:${springBootVersion}") }
     }
 
     sourceSets {
@@ -97,4 +105,21 @@ allprojects {
         enabled = false
     }
 
+    bintray {
+        user = System.getenv("BINTRAY_USER") ?: System.properties['bintrayUser']
+        key = System.getenv("BINTRAY_KEY") ?: System.properties['bintrayKey']
+        configurations = ['archives']
+
+        pkg {
+            repo = "maven"
+            name = project.name
+            licenses = ['Apache-2.0']
+            vcsUrl = 'https://github.com/ruslanys/telegraff.git'
+        }
+    }
+
+}
+
+bootJar {
+    enabled = false
 }
