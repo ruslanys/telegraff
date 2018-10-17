@@ -1,0 +1,6 @@
+rootProject.name = 'telegraff'
+
+include 'telegraff-core'
+include 'telegraff-autoconfigure'
+include 'telegraff-starter'
+include 'telegraff-sample'

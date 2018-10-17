@@ -1,0 +1,14 @@
+dependencies {
+    compile(project(":telegraff-core"))
+    compile(project(":telegraff-autoconfigure"))
+
+    // Spring
+    compile('org.springframework.boot:spring-boot-starter-web')
+
+    // Kotlin
+    compile("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
+    compile("org.jetbrains.kotlin:kotlin-reflect")
+    compile("org.jetbrains.kotlin:kotlin-script-util")
+    compile("org.jetbrains.kotlin:kotlin-compiler-embeddable")
+    compile('com.fasterxml.jackson.module:jackson-module-kotlin')
+}

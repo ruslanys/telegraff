@@ -1,0 +1,28 @@
+{
+  "ok": true,
+  "result": {
+    "message_id": 5399,
+    "from": {
+      "id": 192361356,
+      "is_bot": true,
+      "first_name": "DevBot",
+      "username": "RuslanysBot"
+    },
+    "chat": {
+      "id": 73168307,
+      "first_name": "Ruslan",
+      "last_name": "Molchanov",
+      "username": "ruslanys",
+      "type": "private"
+    },
+    "date": 1539004015,
+    "text": "Как дела, Руслан?",
+    "entities": [
+      {
+        "offset": 10,
+        "length": 6,
+        "type": "italic"
+      }
+    ]
+  }
+}

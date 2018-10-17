@@ -1,0 +1,12 @@
+apply plugin: 'kotlin-kapt'
+
+dependencies {
+    // Telegraff
+    compile(project(":telegraff-core"))
+
+    // Spring
+    compile("org.springframework.boot:spring-boot-autoconfigure")
+
+    // DevTools
+    kapt('org.springframework.boot:spring-boot-configuration-processor')
+}

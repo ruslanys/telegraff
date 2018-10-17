@@ -1,0 +1,12 @@
+dependencies {
+    compile(project(":telegraff-starter"))
+
+    // Tests
+    testCompile('org.springframework.boot:spring-boot-starter-test')
+    testCompile("org.jetbrains.kotlin:kotlin-test")
+}
+
+bootJar {
+    enabled = true
+    launchScript()
+}

@@ -1,0 +1,20 @@
+dependencies {
+    // Spring
+    compile('org.springframework.boot:spring-boot-starter-web')
+
+    // Tests
+    testCompile('org.springframework.boot:spring-boot-starter-test')
+    testCompile("org.jetbrains.kotlin:kotlin-test")
+}
+
+jacocoTestReport {
+    afterEvaluate {
+        classDirectories = files(classDirectories.files.collect {
+            fileTree(dir: it, exclude: [
+                    'me/ruslanys/telegraff/exception/**',
+                    'me/ruslanys/telegraff/domain/**',
+                    'me/ruslanys/telegraff/event/**'
+            ])
+        })
+    }
+}

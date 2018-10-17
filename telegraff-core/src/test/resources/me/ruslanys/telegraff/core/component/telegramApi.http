@@ -1,0 +1,119 @@
+# For a quick start check out our HTTP Requests collection (Tools|HTTP Client|Open HTTP Requests Collection).
+#
+# Following HTTP Request Live Templates are available:
+# * 'gtrp' and 'gtr' create a GET request with or without query parameters;
+# * 'ptr' and 'ptrp' create a POST request with a simple or parameter-like body;
+# * 'mptr' and 'fptr' create a POST request to submit a form with a text or file field (multipart/form-data);
+
+### Get current user
+GET https://api.telegram.org/bot192361356:AAEIHD5bfMT7HOrvgsSbGEBUrNiim_S6cbY/getMe
+Accept: application/json
+
+### Get updates
+POST https://api.telegram.org/bot192361356:AAEIHD5bfMT7HOrvgsSbGEBUrNiim_S6cbY/getUpdates
+Accept: application/json
+
+### Set webhook
+POST https://api.telegram.org/bot192361356:AAEIHD5bfMT7HOrvgsSbGEBUrNiim_S6cbY/setWebhook
+Content-Type: application/json
+
+{
+  "url": "https://ruslanys.me/webhook"
+}
+
+### Remove webhook
+POST https://api.telegram.org/bot192361356:AAEIHD5bfMT7HOrvgsSbGEBUrNiim_S6cbY/setWebhook
+Content-Type: application/json
+
+{
+  "url": ""
+}
+
+### Send message
+POST https://api.telegram.org/bot192361356:AAEIHD5bfMT7HOrvgsSbGEBUrNiim_S6cbY/sendMessage
+Content-Type: application/json
+
+{
+  "chat_id": 73168307,
+  "text": "Привет, *Руслан*!",
+  "parse_mode": "MARKDOWN",
+  "disable_web_page_preview": false,
+  "disable_notification": false,
+  "reply_markup": {
+    "remove_keyboard": true
+  }
+}
+
+### Send message with keyboard markup
+POST https://api.telegram.org/bot192361356:AAEIHD5bfMT7HOrvgsSbGEBUrNiim_S6cbY/sendMessage
+Content-Type: application/json
+
+{
+  "chat_id": 73168307,
+  "text": "Как дела, <i>Руслан</i>?",
+  "parse_mode": "HTML",
+  "reply_markup": {
+    "keyboard": [
+      [
+        "Хорошо",
+        "Пойдет"
+      ],
+      [
+        "Отмена"
+      ]
+    ],
+    "resize_keyboard": true,
+    "one_time_keyboard": true
+  }
+}
+
+### Send photo
+POST https://api.telegram.org/bot192361356:AAEIHD5bfMT7HOrvgsSbGEBUrNiim_S6cbY/sendPhoto
+Content-Type: multipart/form-data; boundary=WebAppBoundary
+
+--WebAppBoundary
+Content-Disposition: form-data; name="chat_id"
+Content-Type: text/plain
+
+73168307
+--WebAppBoundary
+Content-Disposition: form-data; name="caption"
+Content-Type: text/plain
+
+*Тестовая* картинка
+--WebAppBoundary
+Content-Disposition: form-data; name="parse_mode"
+Content-Type: text/plain
+
+MARKDOWN
+--WebAppBoundary
+Content-Disposition: form-data; name="reply_markup"
+Content-Type: application/json
+
+{
+  "remove_keyboard": true
+}
+--WebAppBoundary
+Content-Disposition: form-data; name="photo"; filename="picture.png"
+Content-Type: image/png
+
+< ./telegramApi_photo.png
+--WebAppBoundary--
+
+### Send voice
+POST https://api.telegram.org/bot192361356:AAEIHD5bfMT7HOrvgsSbGEBUrNiim_S6cbY/sendVoice
+Content-Type: multipart/form-data; boundary=WebAppBoundary
+
+--WebAppBoundary
+Content-Disposition: form-data; name="chat_id"
+Content-Type: text/plain
+
+73168307
+--WebAppBoundary
+Content-Disposition: form-data; name="voice"; filename="voice.mp3"
+Content-Type: audio/mpeg
+
+< ./telegramApi_voice.mp3
+--WebAppBoundary--
+
+###

@@ -1,0 +1,36 @@
+{
+  "ok": true,
+  "result": {
+    "message_id": 5404,
+    "from": {
+      "id": 192361356,
+      "is_bot": true,
+      "first_name": "DevBot",
+      "username": "RuslanysBot"
+    },
+    "chat": {
+      "id": 73168307,
+      "first_name": "Ruslan",
+      "last_name": "Molchanov",
+      "username": "ruslanys",
+      "type": "private"
+    },
+    "date": 1539009697,
+    "photo": [
+      {
+        "file_id": "AgADAgADRakxG8Jx2EkSVQpTbXlAnirstw4ABPhvFHGmxC8hVt8AAgI",
+        "file_size": 2358,
+        "width": 64,
+        "height": 64
+      }
+    ],
+    "caption": "Тестовая картинка",
+    "caption_entities": [
+      {
+        "offset": 0,
+        "length": 8,
+        "type": "bold"
+      }
+    ]
+  }
+}

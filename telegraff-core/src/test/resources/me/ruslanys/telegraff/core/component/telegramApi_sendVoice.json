@@ -1,0 +1,26 @@
+{
+  "ok": true,
+  "result": {
+    "message_id": 5410,
+    "from": {
+      "id": 192361356,
+      "is_bot": true,
+      "first_name": "DevBot",
+      "username": "RuslanysBot"
+    },
+    "chat": {
+      "id": 73168307,
+      "first_name": "Ruslan",
+      "last_name": "Molchanov",
+      "username": "ruslanys",
+      "type": "private"
+    },
+    "date": 1539013017,
+    "voice": {
+      "duration": 73,
+      "mime_type": "audio/mpeg",
+      "file_id": "AwADAgADOwIAAsJx2EmN32iMcTsBywI",
+      "file_size": 2175580
+    }
+  }
+}
