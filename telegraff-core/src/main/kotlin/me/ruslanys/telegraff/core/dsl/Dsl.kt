@@ -2,6 +2,8 @@ package me.ruslanys.telegraff.core.dsl
 
 import me.ruslanys.telegraff.core.dto.request.TelegramSendRequest
 import me.ruslanys.telegraff.core.exception.HandlerException
+import me.ruslanys.telegraff.core.util.TelegraffContextUtil
+import org.springframework.context.ApplicationContext
 
 
 fun handler(vararg commands: String, init: HandlerBuilder.() -> Unit): Handler {
@@ -89,6 +91,10 @@ class StepBuilder<T>(val key: String) {
     }
 
 }
+
+fun context(): ApplicationContext = TelegraffContextUtil.getContext()
+
+fun <T> getBean(clazz: Class<T>): T = TelegraffContextUtil.getBean(clazz)
 
 
 typealias ProcessBlock = (state: HandlerState, answers: Map<String, Any>) -> TelegramSendRequest?

@@ -10,6 +10,7 @@ import me.ruslanys.telegraff.core.dsl.DefaultHandlersFactory
 import me.ruslanys.telegraff.core.dsl.HandlersFactory
 import me.ruslanys.telegraff.core.event.TelegramUpdateEvent
 import me.ruslanys.telegraff.core.filter.*
+import me.ruslanys.telegraff.core.util.TelegraffContextUtil
 import org.springframework.boot.autoconfigure.AutoConfigureAfter
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean
@@ -23,6 +24,7 @@ import org.springframework.context.ApplicationEventPublisher
 import org.springframework.context.ApplicationListener
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
+import org.springframework.context.annotation.DependsOn
 import org.springframework.context.annotation.Scope
 
 /**
@@ -46,11 +48,17 @@ class TelegraffServletWebConfiguration(val telegramProperties: TelegramPropertie
     @ConditionalOnMissingBean(name = ["telegramProperties"])
     fun telegramProperties(): TelegramProperties = telegramProperties
 
+    @Bean("telegraffContextUtil")
+    @ConditionalOnMissingBean
+    fun appContextUtils(): TelegraffContextUtil {
+        return TelegraffContextUtil
+    }
+
     // region Clients
 
     @Bean
     @ConditionalOnMissingBean(TelegramClient::class)
-    @ConditionalOnProperty(name = [ "telegram.mode" ], havingValue = "polling", matchIfMissing = true)
+    @ConditionalOnProperty(name = ["telegram.mode"], havingValue = "polling", matchIfMissing = true)
     fun telegramPollingClient(telegramApi: TelegramApi, publisher: ApplicationEventPublisher): TelegramPollingClient {
         return TelegramPollingClient(telegramApi, publisher)
     }
@@ -78,6 +86,7 @@ class TelegraffServletWebConfiguration(val telegramProperties: TelegramPropertie
 
     // endregion
 
+    @DependsOn("telegraffContextUtil")
     @Bean
     @ConditionalOnMissingBean(HandlersFactory::class)
     fun handlersFactory(): DefaultHandlersFactory = DefaultHandlersFactory(telegramProperties.scenariosPath)
