@@ -64,7 +64,7 @@ class HandlersFilter(private val telegramApi: TelegramApi, handlersFactory: Hand
             val question = currentStep.question(state)
             return TelegramMessageSendRequest(0, e.message, TelegramParseMode.MARKDOWN, question.replyKeyboard)
         }
-        state.answers[currentStep.key] = answer!!
+        state.answers[currentStep.key] = answer
 
         // next step
         val nextStepKey = currentStep.next(state)

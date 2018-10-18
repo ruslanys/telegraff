@@ -2,44 +2,49 @@ package me.ruslanys.telegraff.core.dsl
 
 import me.ruslanys.telegraff.core.dto.request.TelegramSendRequest
 import me.ruslanys.telegraff.core.exception.HandlerException
-import me.ruslanys.telegraff.core.util.TelegraffContextUtil
-import org.springframework.context.ApplicationContext
+import org.springframework.context.support.GenericApplicationContext
 
 
-fun handler(vararg commands: String, init: HandlerBuilder.() -> Unit): Handler {
-    val builder = HandlerBuilder(commands.asList())
-    init(builder) // handler.init()
+fun handler(vararg commands: String, init: HandlerDsl.() -> Unit): DslWrapper {
+    return { context ->
+        val dsl = HandlerDsl(commands.asList(), context)
+        init(dsl) // handler.init()
 
-    return builder.build()
+        dsl.build()
+    }
 }
 
-class HandlerBuilder(private val commands: List<String>) {
+class HandlerDsl(private val commands: List<String>, val context: GenericApplicationContext) {
 
-    private val stepBuilders: MutableList<StepBuilder<*>> = arrayListOf()
-
+    private val stepDsls: MutableList<StepDsl<*>> = arrayListOf()
     private var process: ProcessBlock? = null
 
-    fun <T> step(key: String, init: StepBuilder<T>.() -> Unit): StepBuilder<T> {
-        val builder = StepBuilder<T>(key)
-        init(builder) // step.init()
 
-        stepBuilders.add(builder)
+    fun <T : Any> step(key: String, init: StepDsl<T>.() -> Unit): StepDsl<T> {
+        val dsl = StepDsl<T>(key)
+        init(dsl) // step.init()
 
-        return builder
+        stepDsls.add(dsl)
+
+        return dsl
     }
 
     fun process(processor: ProcessBlock) {
         this.process = processor
     }
 
+    inline fun <reified T> getBean(): T {
+        return context.getBean(T::class.java)
+    }
+
     internal fun build(): Handler {
         val steps = arrayListOf<Step<*>>()
 
-        for (i in 0 until stepBuilders.size) {
-            val builder = stepBuilders[i]
+        for (i in 0 until stepDsls.size) {
+            val builder = stepDsls[i]
             val step = builder.build {
-                if (i + 1 < stepBuilders.size) {
-                    stepBuilders[i + 1].key
+                if (i + 1 < stepDsls.size) {
+                    stepDsls[i + 1].key
                 } else {
                     null
                 }
@@ -51,14 +56,14 @@ class HandlerBuilder(private val commands: List<String>) {
         return Handler(
                 commands,
                 steps.associateBy { it.key },
-                stepBuilders.firstOrNull()?.key,
+                stepDsls.firstOrNull()?.key,
                 process ?: throw HandlerException("Process block must not be null!")
         )
     }
 
 }
 
-class StepBuilder<T>(val key: String) {
+class StepDsl<T : Any>(val key: String) {
 
     private var question: QuestionBlock? = null
 
@@ -92,13 +97,10 @@ class StepBuilder<T>(val key: String) {
 
 }
 
-fun context(): ApplicationContext = TelegraffContextUtil.getContext()
-
-fun <T> getBean(clazz: Class<T>): T = TelegraffContextUtil.getBean(clazz)
-
 
 typealias ProcessBlock = (state: HandlerState, answers: Map<String, Any>) -> TelegramSendRequest?
 
 typealias QuestionBlock = (HandlerState) -> TelegramSendRequest
 typealias ValidationBlock<T> = (String) -> T
 typealias NextStepBlock = (HandlerState) -> String?
+typealias DslWrapper = (GenericApplicationContext) -> Handler

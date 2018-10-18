@@ -26,6 +26,7 @@ import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.context.annotation.DependsOn
 import org.springframework.context.annotation.Scope
+import org.springframework.context.support.GenericApplicationContext
 
 /**
  * Configuration for Telegraff when used in a servlet web context.
@@ -89,7 +90,9 @@ class TelegraffServletWebConfiguration(val telegramProperties: TelegramPropertie
     @DependsOn("telegraffContextUtil")
     @Bean
     @ConditionalOnMissingBean(HandlersFactory::class)
-    fun handlersFactory(): DefaultHandlersFactory = DefaultHandlersFactory(telegramProperties.scenariosPath)
+    fun handlersFactory(context: GenericApplicationContext): DefaultHandlersFactory {
+        return DefaultHandlersFactory(context, telegramProperties.scenariosPath)
+    }
 
     // region Filters
 

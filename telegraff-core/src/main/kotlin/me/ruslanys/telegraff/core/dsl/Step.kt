@@ -1,6 +1,6 @@
 package me.ruslanys.telegraff.core.dsl
 
-class Step<T>(
+class Step<T : Any>(
         val key: String,
         val question: QuestionBlock,
         val validation: ValidationBlock<T>,

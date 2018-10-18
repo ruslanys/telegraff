@@ -3,19 +3,23 @@ package me.ruslanys.telegraff.core.dsl
 import org.jetbrains.kotlin.script.jsr223.KotlinJsr223JvmLocalScriptEngineFactory
 import org.jetbrains.kotlin.utils.addToStdlib.measureTimeMillisWithResult
 import org.slf4j.LoggerFactory
+import org.springframework.context.support.GenericApplicationContext
 import org.springframework.stereotype.Component
 import java.io.File
 import java.io.FileFilter
 import javax.script.ScriptEngineFactory
 
 @Component
-class DefaultHandlersFactory(scenariosPath: String) : HandlersFactory {
+class DefaultHandlersFactory(
+        private val context: GenericApplicationContext,
+        scenariosPath: String) : HandlersFactory {
 
     private val handlers: MutableMap<String, Handler> = hashMapOf()
 
     init {
         val factory: ScriptEngineFactory = KotlinJsr223JvmLocalScriptEngineFactory()
-        val resourcePath = javaClass.classLoader.getResource(scenariosPath) ?: throw IllegalArgumentException("Scenarios folder does not exist!")
+        val resourcePath = javaClass.classLoader.getResource(scenariosPath)
+                ?: throw IllegalArgumentException("Scenarios folder does not exist!")
 
         val scenarios = File(resourcePath.toURI())
                 .listFiles(FileFilter {
@@ -32,12 +36,12 @@ class DefaultHandlersFactory(scenariosPath: String) : HandlersFactory {
         val scriptEngine = factory.scriptEngine
 
         val compiled = measureTimeMillisWithResult {
-            scriptEngine.eval(file.bufferedReader()) as Handler
+            scriptEngine.eval(file.bufferedReader()) as DslWrapper
         }
 
         log.info("Compilation for ${file.nameWithoutExtension} took ${compiled.first} ms")
 
-        return compiled.second
+        return compiled.second(context)
     }
 
     private fun addHandler(handler: Handler) {
