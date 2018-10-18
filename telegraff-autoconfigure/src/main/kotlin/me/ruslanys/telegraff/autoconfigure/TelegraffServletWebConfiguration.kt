@@ -8,7 +8,6 @@ import me.ruslanys.telegraff.core.component.DefaultTelegramApi
 import me.ruslanys.telegraff.core.component.TelegramApi
 import me.ruslanys.telegraff.core.dsl.DefaultHandlersFactory
 import me.ruslanys.telegraff.core.dsl.HandlersFactory
-import me.ruslanys.telegraff.core.event.TelegramUpdateEvent
 import me.ruslanys.telegraff.core.filter.*
 import org.springframework.boot.autoconfigure.AutoConfigureAfter
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass
@@ -19,10 +18,8 @@ import org.springframework.boot.autoconfigure.web.client.RestTemplateAutoConfigu
 import org.springframework.boot.autoconfigure.web.servlet.WebMvcAutoConfiguration
 import org.springframework.boot.web.client.RestTemplateBuilder
 import org.springframework.context.ApplicationEventPublisher
-import org.springframework.context.ApplicationListener
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
-import org.springframework.context.annotation.Scope
 import org.springframework.context.support.GenericApplicationContext
 
 /**
@@ -87,16 +84,9 @@ class TelegraffServletWebConfiguration(val telegramProperties: TelegramPropertie
     // region Filters
 
     @Bean
-    @ConditionalOnMissingBean(TelegramFiltersFactory::class)
-    fun telegramFiltersFactory(filters: List<TelegramFilter>): TelegramFiltersFactory {
+    @ConditionalOnMissingBean(TelegramFiltersFactory::class, TelegramFilterProcessor::class)
+    fun telegramFiltersFactory(filters: List<TelegramFilter>): DefaultTelegramFiltersFactory {
         return DefaultTelegramFiltersFactory(filters)
-    }
-
-    @Bean
-    @ConditionalOnMissingBean(TelegramFilterChain::class)
-    @Scope("prototype")
-    fun telegramFilterChain(telegramFiltersFactory: TelegramFiltersFactory): ApplicationListener<TelegramUpdateEvent> {
-        return DefaultTelegramFilterChain(telegramFiltersFactory)
     }
 
     @Bean
