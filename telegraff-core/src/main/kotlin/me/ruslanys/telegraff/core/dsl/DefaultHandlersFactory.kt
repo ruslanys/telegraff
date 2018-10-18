@@ -19,16 +19,19 @@ class DefaultHandlersFactory(
     init {
         val factory: ScriptEngineFactory = KotlinJsr223JvmLocalScriptEngineFactory()
         val resourcePath = javaClass.classLoader.getResource(scenariosPath)
-                ?: throw IllegalArgumentException("Scenarios folder does not exist!")
 
-        val scenarios = File(resourcePath.toURI())
-                .listFiles(FileFilter {
-                    it.extension == "kts"
-                })
+        if (resourcePath == null) {
+            log.warn("Scenarios path $scenariosPath does not exist!")
+        } else {
+            val scenarios = File(resourcePath.toURI())
+                    .listFiles(FileFilter {
+                        it.extension == "kts"
+                    })
 
-        for (scenarioFile in scenarios) {
-            val handler = compile(factory, scenarioFile)
-            addHandler(handler)
+            for (scenarioFile in scenarios) {
+                val handler = compile(factory, scenarioFile)
+                addHandler(handler)
+            }
         }
     }
 
@@ -36,7 +39,8 @@ class DefaultHandlersFactory(
         val scriptEngine = factory.scriptEngine
 
         val compiled = measureTimeMillisWithResult {
-            scriptEngine.eval(file.bufferedReader()) as DslWrapper
+            @Suppress("UNCHECKED_CAST")
+            scriptEngine.eval(file.bufferedReader()) as HandlerDslWrapper
         }
 
         log.info("Compilation for ${file.nameWithoutExtension} took ${compiled.first} ms")

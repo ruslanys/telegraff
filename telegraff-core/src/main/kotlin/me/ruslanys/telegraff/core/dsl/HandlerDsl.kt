@@ -5,7 +5,7 @@ import me.ruslanys.telegraff.core.exception.HandlerException
 import org.springframework.context.support.GenericApplicationContext
 
 
-fun handler(vararg commands: String, init: HandlerDsl.() -> Unit): DslWrapper {
+fun handler(vararg commands: String, init: HandlerDsl.() -> Unit): HandlerDslWrapper {
     return { context ->
         val dsl = HandlerDsl(commands.asList(), context)
         init(dsl) // handler.init()
@@ -103,4 +103,4 @@ typealias ProcessBlock = (state: HandlerState, answers: Map<String, Any>) -> Tel
 typealias QuestionBlock = (HandlerState) -> TelegramSendRequest
 typealias ValidationBlock<T> = (String) -> T
 typealias NextStepBlock = (HandlerState) -> String?
-typealias DslWrapper = (GenericApplicationContext) -> Handler
+typealias HandlerDslWrapper = (GenericApplicationContext) -> Handler

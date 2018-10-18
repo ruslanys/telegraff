@@ -45,7 +45,7 @@ class TelegramPollingClient(
         override fun run() {
             while (!isInterrupted) {
                 try {
-                    val updates = telegramApi.getUpdates(offset, 10)
+                    val updates = telegramApi.getUpdates(offset, POLLING_TIMEOUT)
                     if (updates.isEmpty()) {
                         continue
                     }
@@ -68,6 +68,7 @@ class TelegramPollingClient(
 
     companion object {
         private val log = LoggerFactory.getLogger(TelegramPollingClient::class.java)
+        private const val POLLING_TIMEOUT = 10
     }
 
 
