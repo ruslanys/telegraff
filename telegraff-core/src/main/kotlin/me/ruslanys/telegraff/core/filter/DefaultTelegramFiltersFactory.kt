@@ -1,18 +1,11 @@
 package me.ruslanys.telegraff.core.filter
 
 import me.ruslanys.telegraff.core.util.TelegramFilterOrderUtil
-import org.springframework.context.ApplicationContext
-import javax.annotation.PostConstruct
 
-class DefaultTelegramFiltersFactory(private val context: ApplicationContext) : TelegramFiltersFactory {
+class DefaultTelegramFiltersFactory(filters: List<TelegramFilter>) : TelegramFiltersFactory {
 
-    private lateinit var filters: List<TelegramFilter>
-
-    @PostConstruct
-    private fun init() {
-        filters = context.getBeansOfType(TelegramFilter::class.java)
-                .values
-                .sortedBy { TelegramFilterOrderUtil.getOrder(it.javaClass) }
+    private val filters: List<TelegramFilter> = filters.sortedBy {
+        TelegramFilterOrderUtil.getOrder(it::class.java)
     }
 
     override fun getFilters(): List<TelegramFilter> {

@@ -18,7 +18,6 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplicat
 import org.springframework.boot.autoconfigure.web.client.RestTemplateAutoConfiguration
 import org.springframework.boot.autoconfigure.web.servlet.WebMvcAutoConfiguration
 import org.springframework.boot.web.client.RestTemplateBuilder
-import org.springframework.context.ApplicationContext
 import org.springframework.context.ApplicationEventPublisher
 import org.springframework.context.ApplicationListener
 import org.springframework.context.annotation.Bean
@@ -89,8 +88,8 @@ class TelegraffServletWebConfiguration(val telegramProperties: TelegramPropertie
 
     @Bean
     @ConditionalOnMissingBean(TelegramFiltersFactory::class)
-    fun telegramFiltersFactory(context: ApplicationContext): TelegramFiltersFactory {
-        return DefaultTelegramFiltersFactory(context)
+    fun telegramFiltersFactory(filters: List<TelegramFilter>): TelegramFiltersFactory {
+        return DefaultTelegramFiltersFactory(filters)
     }
 
     @Bean
