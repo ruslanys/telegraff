@@ -10,7 +10,6 @@ import me.ruslanys.telegraff.core.dsl.DefaultHandlersFactory
 import me.ruslanys.telegraff.core.dsl.HandlersFactory
 import me.ruslanys.telegraff.core.event.TelegramUpdateEvent
 import me.ruslanys.telegraff.core.filter.*
-import me.ruslanys.telegraff.core.util.TelegraffContextUtil
 import org.springframework.boot.autoconfigure.AutoConfigureAfter
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean
@@ -24,7 +23,6 @@ import org.springframework.context.ApplicationEventPublisher
 import org.springframework.context.ApplicationListener
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
-import org.springframework.context.annotation.DependsOn
 import org.springframework.context.annotation.Scope
 import org.springframework.context.support.GenericApplicationContext
 
@@ -48,12 +46,6 @@ class TelegraffServletWebConfiguration(val telegramProperties: TelegramPropertie
     @Bean
     @ConditionalOnMissingBean(name = ["telegramProperties"])
     fun telegramProperties(): TelegramProperties = telegramProperties
-
-    @Bean("telegraffContextUtil")
-    @ConditionalOnMissingBean
-    fun appContextUtils(): TelegraffContextUtil {
-        return TelegraffContextUtil
-    }
 
     // region Clients
 
@@ -87,7 +79,6 @@ class TelegraffServletWebConfiguration(val telegramProperties: TelegramPropertie
 
     // endregion
 
-    @DependsOn("telegraffContextUtil")
     @Bean
     @ConditionalOnMissingBean(HandlersFactory::class)
     fun handlersFactory(context: GenericApplicationContext): DefaultHandlersFactory {

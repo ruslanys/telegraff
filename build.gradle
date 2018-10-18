@@ -16,7 +16,7 @@ ext {
 
 allprojects {
     group = 'me.ruslanys.telegraff'
-    version = '1.0.0-RC.11'
+    version = '1.0.0-RC.12'
 
     repositories {
         jcenter()

@@ -7,6 +7,7 @@ import org.junit.runner.RunWith
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.TestConfiguration
 import org.springframework.context.annotation.Bean
+import org.springframework.context.support.GenericApplicationContext
 import org.springframework.test.context.ContextConfiguration
 import org.springframework.test.context.junit4.SpringRunner
 
@@ -30,7 +31,7 @@ abstract class HandlerTests(private val handlerCommand: String) {
             TelegramChat(-1L, "PRIVATE", null, "bot", "First name", "Last name")
 
     @Suppress("UNCHECKED_CAST")
-    protected fun <T> getStep(key: String): Step<T> {
+    protected fun <T: Any> getStep(key: String): Step<T> {
         return (handler.getStepByKey(key) as Step<T>?)!!
     }
 
@@ -38,8 +39,8 @@ abstract class HandlerTests(private val handlerCommand: String) {
     class Config {
 
         @Bean
-        fun handlersFactory(): HandlersFactory {
-            return DefaultHandlersFactory("scenarios")
+        fun handlersFactory(context: GenericApplicationContext): HandlersFactory {
+            return DefaultHandlersFactory(context, "scenarios")
         }
 
     }

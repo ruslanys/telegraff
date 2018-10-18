@@ -19,9 +19,10 @@ handler("/name") {
         }
     }
 
-    val nameGenerator = getBean<NameGenerator>()
 
     process { state, answers ->
+        val nameGenerator = getBean<NameGenerator>()
+
         val length = answers["length"] as Int
         val name = nameGenerator.generateName(length)
 
