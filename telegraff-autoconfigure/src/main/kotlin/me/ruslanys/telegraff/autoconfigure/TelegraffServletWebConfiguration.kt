@@ -101,8 +101,9 @@ class TelegraffServletWebConfiguration(val telegramProperties: TelegramPropertie
         return CancelFilter(telegramApi, handlersFilter)
     }
 
-    @Bean // TODO: Make this optional
+    @Bean
     @ConditionalOnMissingBean(UnresolvedMessageFilter::class)
+    @ConditionalOnProperty(name = ["telegram.unresolved-filter.enabled"], matchIfMissing = true)
     fun unresolvedMessageFilter(telegramApi: TelegramApi): UnresolvedMessageFilter {
         return UnresolvedMessageFilter(telegramApi)
     }

@@ -3,7 +3,6 @@ package me.ruslanys.telegraff.autoconfigure.property
 import org.springframework.boot.context.properties.ConfigurationProperties
 import org.springframework.stereotype.Component
 import java.util.*
-import javax.validation.constraints.NotEmpty
 
 @Component("telegramProperties")
 @ConfigurationProperties(prefix = "telegram", ignoreUnknownFields = false)
@@ -34,10 +33,23 @@ class TelegramProperties {
     /**
      * Path where handlers declaration stored.
      */
-    @NotEmpty
     var scenariosPath = "scenarios"
+
+    /**
+     * UnresolvedMessageFilter properties.
+     */
+    var unresolvedFilter = UnresolvedMessageFilterProperties()
 
 
     fun getWebhookUrl(): String = "$webhookBaseUrl$webhookEndpointUrl"
+
+
+
+    class UnresolvedMessageFilterProperties {
+        /**
+         * Enable UnresolvedMessageFilter.
+         */
+        var enabled: Boolean = true
+    }
 
 }
