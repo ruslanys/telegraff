@@ -24,7 +24,6 @@ import org.springframework.validation.Validator
 class TelegraffAutoConfiguration {
 
     companion object {
-        @JvmStatic
         @Bean
         fun configurationPropertiesValidator(): Validator {
             return TelegramPropertiesValidator()
