@@ -8,17 +8,17 @@ open class TelegramMessageSendRequest(
 
         chatId: Long,
 
-        @JsonProperty("text")
+        @get:JsonProperty("text")
         val text: String,
 
-        @JsonProperty("parse_mode")
+        @get:JsonProperty("parse_mode")
         val parseMode: TelegramParseMode,
 
         replyMarkup: TelegramReplyKeyboard = TelegramRemoveReplyKeyboard(),
 
         disableNotification: Boolean = false,
 
-        @JsonProperty("disable_web_page_preview")
+        @get:JsonProperty("disable_web_page_preview")
         val disableWebPagePreview: Boolean = false
 
 ) : TelegramSendRequest(chatId, replyMarkup, disableNotification) {

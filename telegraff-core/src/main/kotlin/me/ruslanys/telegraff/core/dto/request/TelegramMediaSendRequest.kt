@@ -6,10 +6,10 @@ import me.ruslanys.telegraff.core.dto.request.keyboard.TelegramRemoveReplyKeyboa
 abstract class TelegramMediaSendRequest(
         chatId: Long,
 
-        @JsonProperty("caption")
+        @get:JsonProperty("caption")
         val caption: String? = null,
 
-        @JsonProperty("parse_mode")
+        @get:JsonProperty("parse_mode")
         val parseMode: TelegramParseMode? = null
 
 ) : TelegramSendRequest(chatId, TelegramRemoveReplyKeyboard())

@@ -3,7 +3,7 @@ package me.ruslanys.telegraff.core.dto.request.keyboard
 import com.fasterxml.jackson.annotation.JsonProperty
 
 abstract class TelegramReplyKeyboard(
-        @JsonProperty("selective")
+        @get:JsonProperty("selective")
         val selective: Boolean = false
 ) {
 

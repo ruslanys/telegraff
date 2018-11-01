@@ -6,7 +6,7 @@ class TelegramPhotoSendRequest(
 
         chatId: Long,
 
-        @JsonProperty("photo")
+        @get:JsonProperty("photo")
         val photo: ByteArray,
 
         caption: String? = null,

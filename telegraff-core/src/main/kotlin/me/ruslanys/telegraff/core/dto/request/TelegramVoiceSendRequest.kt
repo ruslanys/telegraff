@@ -6,7 +6,7 @@ class TelegramVoiceSendRequest(
 
         chatId: Long,
 
-        @JsonProperty("voice")
+        @get:JsonProperty("voice")
         val voice: ByteArray,
 
         caption: String? = null,

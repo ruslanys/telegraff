@@ -6,10 +6,10 @@ class TelegramMarkupReplyKeyboard(
         answers: List<String>,
         columns: Int = DEFAULT_COLUMNS_NUMBER,
 
-        @JsonProperty("resize_keyboard")
+        @get:JsonProperty("resize_keyboard")
         val resizeKeyboard: Boolean = true,
 
-        @JsonProperty("one_time_keyboard")
+        @get:JsonProperty("one_time_keyboard")
         val oneTimeKeyboard: Boolean = true
 ) : TelegramReplyKeyboard() {
 
