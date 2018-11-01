@@ -1,15 +1,26 @@
 package me.ruslanys.telegraff.core.dto.request
 
+import com.fasterxml.jackson.annotation.JsonProperty
 import me.ruslanys.telegraff.core.dto.request.keyboard.TelegramRemoveReplyKeyboard
 import me.ruslanys.telegraff.core.dto.request.keyboard.TelegramReplyKeyboard
 
 open class TelegramMessageSendRequest(
+
         chatId: Long,
+
+        @JsonProperty("text")
         val text: String,
+
+        @JsonProperty("parse_mode")
         val parseMode: TelegramParseMode,
+
         replyMarkup: TelegramReplyKeyboard = TelegramRemoveReplyKeyboard(),
+
         disableNotification: Boolean = false,
+
+        @JsonProperty("disable_web_page_preview")
         val disableWebPagePreview: Boolean = false
+
 ) : TelegramSendRequest(chatId, replyMarkup, disableNotification) {
 
     override fun equals(other: Any?): Boolean {

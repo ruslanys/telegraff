@@ -11,10 +11,13 @@ data class TelegramMessage(
         @JsonProperty("from")
         val user: TelegramUser?,
 
+        @JsonProperty("date")
         val date: Long,
 
+        @JsonProperty("chat")
         val chat: TelegramChat,
 
+        @JsonProperty("text")
         val text: String?
 
 ) {

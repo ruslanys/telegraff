@@ -1,8 +1,16 @@
 package me.ruslanys.telegraff.core.dto.request
 
+import com.fasterxml.jackson.annotation.JsonProperty
+
 class TelegramPhotoSendRequest(
+
         chatId: Long,
+
+        @JsonProperty("photo")
         val photo: ByteArray,
+
         caption: String? = null,
+
         parseMode: TelegramParseMode? = null
+
 ) : TelegramMediaSendRequest(chatId, caption, parseMode)

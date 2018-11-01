@@ -1,7 +1,10 @@
 package me.ruslanys.telegraff.core.dto.request.keyboard
 
+import com.fasterxml.jackson.annotation.JsonProperty
+
 class TelegramRemoveReplyKeyboard : TelegramReplyKeyboard() {
 
+    @JsonProperty("remove_keyboard")
     fun getRemoveKeyboard(): Boolean {
         return true
     }

@@ -1,6 +1,11 @@
 package me.ruslanys.telegraff.core.dto.request.keyboard
 
-abstract class TelegramReplyKeyboard(val selective: Boolean = false) {
+import com.fasterxml.jackson.annotation.JsonProperty
+
+abstract class TelegramReplyKeyboard(
+        @JsonProperty("selective")
+        val selective: Boolean = false
+) {
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
