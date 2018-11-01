@@ -9,9 +9,7 @@ class TelegramPropertiesValidator : Validator {
         return type === TelegramProperties::class.java
     }
 
-    override fun validate(target: Any?, errors: Errors) {
-        target ?: return
-
+    override fun validate(target: Any, errors: Errors) {
         val properties = target as TelegramProperties
 
         if (properties.accessKey.isEmpty()) {
