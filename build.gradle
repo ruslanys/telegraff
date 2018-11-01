@@ -2,15 +2,15 @@ plugins {
     id 'java'
     id 'idea'
     id 'jacoco'
-    id 'org.jetbrains.kotlin.jvm' version '1.2.71'
-    id 'org.jetbrains.kotlin.kapt' version '1.2.71'
-    id 'org.jetbrains.kotlin.plugin.spring' version '1.2.71'
+    id 'org.jetbrains.kotlin.jvm' version '1.3'
+    id 'org.jetbrains.kotlin.kapt' version '1.3'
+    id 'org.jetbrains.kotlin.plugin.spring' version '1.3'
     id 'org.springframework.boot' version '2.0.6.RELEASE'
     id 'com.jfrog.bintray' version '1.8.4'
 }
 
 ext {
-    kotlinVersion = '1.2.71'
+    kotlinVersion = '1.3'
     springBootVersion = '2.0.6.RELEASE'
 }
 
