@@ -31,16 +31,16 @@ Maven:
 ## Настройка
 
 ```
-telegram.access-key=
-telegram.mode= # polling (default), webhook
-telegram.webhook-base-url=
-telegram.webhook-endpount-url=
+telegram.access-key=                  # api key
+telegram.mode=                        # polling (default), webhook
+telegram.webhook-base-url=            # required for webhook mode
+telegram.webhook-endpount-url=        # optional
 ```
 
 ## Использование
 
 Положите файл с расширением `.kts` в папку c ресурсами `scenarios`:
-`src/main/resources/scenarios/MyHandler.kts`.
+`resources/scenarios/ExampleHandler.kts`.
 
 
 ```kotlin
