@@ -4,10 +4,18 @@
 
 ## Подключение
 
+```
+repositories {
+    maven {
+        url "https://dl.bintray.com/ruslanys/maven"
+    }
+}
+```
+
 Gradle: 
 
 ```
-compile("me.ruslanys.telegraff:telegraff-starter:0.1.0")
+compile("me.ruslanys.telegraff:telegraff-starter:1.0.0-RC.23")
 ```
 
 Maven:
@@ -16,7 +24,7 @@ Maven:
 <dependency>
     <groupId>me.ruslanys.telegraff</groupId>
     <artifactId>telegraff-starter</artifactId>
-    <version>0.1.0</version>
+    <version>1.0.0-RC.23</version>
 </dependency>
 ```
 
