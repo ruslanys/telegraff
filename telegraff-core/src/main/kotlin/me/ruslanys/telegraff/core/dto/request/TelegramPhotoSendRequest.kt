@@ -2,7 +2,7 @@ package me.ruslanys.telegraff.core.dto.request
 
 import com.fasterxml.jackson.annotation.JsonProperty
 
-class TelegramPhotoSendRequest(
+open class TelegramPhotoSendRequest(
 
         chatId: Long,
 

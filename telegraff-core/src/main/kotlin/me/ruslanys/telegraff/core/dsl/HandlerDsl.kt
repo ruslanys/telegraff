@@ -33,10 +33,6 @@ class HandlerDsl(private val commands: List<String>, val context: GenericApplica
         this.process = processor
     }
 
-    inline fun <reified T> getBean(): T {
-        return context.getBean(T::class.java)
-    }
-
     internal fun build(): Handler {
         val steps = arrayListOf<Step<*>>()
 
@@ -59,6 +55,14 @@ class HandlerDsl(private val commands: List<String>, val context: GenericApplica
                 stepDsls.firstOrNull()?.key,
                 process ?: throw HandlerException("Process block must not be null!")
         )
+    }
+
+    inline fun <reified T> getBean(): T {
+        return context.getBean(T::class.java)
+    }
+
+    fun readClasspathResource(path: String): ByteArray = javaClass.classLoader.getResourceAsStream(path).use {
+        it.readBytes()
     }
 
 }
