@@ -6,4 +6,5 @@ handler("/html") {
     process { _, _ ->
         HtmlMessage("Привет, <b>пользователь!</b>")
     }
+    
 }

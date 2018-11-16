@@ -3,7 +3,7 @@ import me.ruslanys.telegraff.core.dto.request.MarkdownMessage
 import me.ruslanys.telegraff.core.exception.ValidationException
 import me.ruslanys.telegraff.sample.NameGenerator
 
-handler("/name") {
+handler("/name", "имя") {
 
     step<Int>("length") {
         question {
@@ -26,6 +26,6 @@ handler("/name") {
         val length = answers["length"] as Int
         val name = nameGenerator.generateName(length)
 
-        MarkdownMessage("Твое новое имя $name")
+        MarkdownMessage("Сгенерированное имя: $name")
     }
 }
