@@ -24,12 +24,16 @@ Maven:
 
 ```
 telegram.access-key=
-telegram.mode= # polling, webhook
+telegram.mode= # polling (default), webhook
 telegram.webhook-base-url=
 telegram.webhook-endpount-url=
 ```
 
 ## Использование
+
+Положите файл с расширением `.kts` в папку c ресурсами `scenarios`:
+`resources/scenarios/ExampleHandler.kts`.
+
 
 ```kotlin
 enum class PaymentMethod {
