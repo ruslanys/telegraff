@@ -40,7 +40,7 @@ telegram.webhook-endpount-url=
 ## Использование
 
 Положите файл с расширением `.kts` в папку c ресурсами `scenarios`:
-`resources/scenarios/ExampleHandler.kts`.
+`src/main/resources/scenarios/MyHandler.kts`.
 
 
 ```kotlin
