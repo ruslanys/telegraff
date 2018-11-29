@@ -33,7 +33,7 @@ class TelegramProperties {
     /**
      * Path where handlers declaration stored.
      */
-    var scenariosPath = "scenarios"
+    var handlersPath = "handlers"
 
     /**
      * UnresolvedMessageFilter properties.

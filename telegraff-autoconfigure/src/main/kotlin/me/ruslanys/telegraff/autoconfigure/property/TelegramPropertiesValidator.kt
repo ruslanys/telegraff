@@ -17,9 +17,9 @@ class TelegramPropertiesValidator : Validator {
                     "Telegram Access Key must not be null!")
         }
 
-        if (properties.scenariosPath.isEmpty()) {
-            errors.rejectValue("scenariosPath", "scenariosPath.null",
-                    "Telegram scenarios path must not be null!")
+        if (properties.handlersPath.isEmpty()) {
+            errors.rejectValue("handlersPath", "handlersPath.null",
+                    "Telegram handlers path must not be null!")
         }
 
         if (properties.mode == TelegramMode.WEBHOOK) {

@@ -78,7 +78,7 @@ class TelegraffServletWebConfiguration(val telegramProperties: TelegramPropertie
     @Bean
     @ConditionalOnMissingBean(HandlersFactory::class)
     fun handlersFactory(context: GenericApplicationContext): DefaultHandlersFactory {
-        return DefaultHandlersFactory(context, telegramProperties.scenariosPath)
+        return DefaultHandlersFactory(context, telegramProperties.handlersPath)
     }
 
     // region Filters

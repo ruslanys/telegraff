@@ -12,24 +12,24 @@ import javax.script.ScriptEngineFactory
 @Component
 class DefaultHandlersFactory(
         private val context: GenericApplicationContext,
-        scenariosPath: String) : HandlersFactory {
+        handlersPath: String) : HandlersFactory {
 
     private val handlers: MutableMap<String, Handler> = hashMapOf()
 
     init {
         val factory: ScriptEngineFactory = KotlinJsr223JvmLocalScriptEngineFactory()
-        val resourcePath = javaClass.classLoader.getResource(scenariosPath)
+        val resourcePath = javaClass.classLoader.getResource(handlersPath)
 
         if (resourcePath == null) {
-            log.warn("Scenarios path $scenariosPath does not exist!")
+            log.warn("Handlers path '$handlersPath' does not exist!")
         } else {
-            val scenarios = File(resourcePath.toURI())
+            val handlers = File(resourcePath.toURI())
                     .listFiles(FileFilter {
                         it.extension == "kts"
                     })
 
-            for (scenarioFile in scenarios) {
-                val handler = compile(factory, scenarioFile)
+            for (handlerFile in handlers) {
+                val handler = compile(factory, handlerFile)
                 addHandler(handler)
             }
         }

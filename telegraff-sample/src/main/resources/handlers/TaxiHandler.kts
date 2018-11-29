@@ -1,5 +1,3 @@
-package scenarios
-
 import me.ruslanys.telegraff.core.dsl.handler
 import me.ruslanys.telegraff.core.dto.request.MarkdownMessage
 import me.ruslanys.telegraff.core.exception.ValidationException

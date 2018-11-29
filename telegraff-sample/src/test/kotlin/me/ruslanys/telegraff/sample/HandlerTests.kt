@@ -40,7 +40,7 @@ abstract class HandlerTests(private val handlerCommand: String) {
 
         @Bean
         fun handlersFactory(context: GenericApplicationContext): HandlersFactory {
-            return DefaultHandlersFactory(context, "scenarios")
+            return DefaultHandlersFactory(context, "handlers")
         }
 
     }
