@@ -90,3 +90,8 @@ handler("/taxi", "такси") {
 ## Устройство
 
 ![Обработка сообщений](docs/processing-diagram.png "Обработка сообщений")
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fruslanys%2Ftelegraff.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2Fruslanys%2Ftelegraff?ref=badge_shield)
+
+
+## License
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fruslanys%2Ftelegraff.svg?type=large)](https://app.fossa.io/projects/git%2Bgithub.com%2Fruslanys%2Ftelegraff?ref=badge_large)
