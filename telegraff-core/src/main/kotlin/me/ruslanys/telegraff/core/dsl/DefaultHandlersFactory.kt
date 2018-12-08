@@ -4,9 +4,9 @@ import org.jetbrains.kotlin.script.jsr223.KotlinJsr223JvmLocalScriptEngineFactor
 import org.jetbrains.kotlin.utils.addToStdlib.measureTimeMillisWithResult
 import org.slf4j.LoggerFactory
 import org.springframework.context.support.GenericApplicationContext
+import org.springframework.core.io.Resource
+import org.springframework.core.io.support.PathMatchingResourcePatternResolver
 import org.springframework.stereotype.Component
-import java.io.File
-import java.io.FileFilter
 import javax.script.ScriptEngineFactory
 
 @Component
@@ -14,36 +14,42 @@ class DefaultHandlersFactory(
         private val context: GenericApplicationContext,
         handlersPath: String) : HandlersFactory {
 
+    private val resolver = PathMatchingResourcePatternResolver(javaClass.classLoader)
     private val handlers: MutableMap<String, Handler> = hashMapOf()
 
     init {
         val factory: ScriptEngineFactory = KotlinJsr223JvmLocalScriptEngineFactory()
-        val resourcePath = javaClass.classLoader.getResource(handlersPath)
 
-        if (resourcePath == null) {
-            log.warn("Handlers path '$handlersPath' does not exist!")
-        } else {
-            val handlers = File(resourcePath.toURI())
-                    .listFiles(FileFilter {
-                        it.extension == "kts"
-                    })
+        val resources: Array<Resource> = try {
+            resolver.getResources("classpath:$handlersPath/*.kts")
+        } catch (e: Exception) {
+            log.warn("Can not load handlers by path `{}`: {}", handlersPath, e.message)
+            arrayOf()
+        }
 
-            for (handlerFile in handlers) {
-                val handler = compile(factory, handlerFile)
-                addHandler(handler)
+
+        for (resource in resources) {
+            val handler = try {
+                compile(factory, resource)
+            } catch (e: Exception) {
+                log.warn("Can not compile {}: {}", resource, e.message)
+                continue
             }
+            addHandler(handler)
         }
     }
 
-    private fun compile(factory: ScriptEngineFactory, file: File): Handler {
+    private fun compile(factory: ScriptEngineFactory, resource: Resource): Handler {
         val scriptEngine = factory.scriptEngine
 
         val compiled = measureTimeMillisWithResult {
-            @Suppress("UNCHECKED_CAST")
-            scriptEngine.eval(file.bufferedReader()) as HandlerDslWrapper
+            resource.inputStream.bufferedReader().use {
+                @Suppress("UNCHECKED_CAST")
+                scriptEngine.eval(it) as HandlerDslWrapper
+            }
         }
 
-        log.info("Compilation for ${file.nameWithoutExtension} took ${compiled.first} ms")
+        log.info("Compilation for ${resource.filename} took ${compiled.first} ms")
 
         return compiled.second(context)
     }
