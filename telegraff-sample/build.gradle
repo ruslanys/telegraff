@@ -44,14 +44,18 @@ dependencies {
 application {
     mainClassName = "me.ruslanys.telegraff.sample.ApplicationKt"
 }
-bootJar {
-    requiresUnpack "**/**kotlin**.jar"
-    requiresUnpack "**/**telegraff**.jar"
-    requiresUnpack "**/**spring**.jar"
+jar {
+    enabled = true
 
     manifest {
         attributes("Implementation-Version": version)
     }
+}
+bootJar {
+    classifier 'boot'
+
+    requiresUnpack "**/**kotlin**.jar"
+    requiresUnpack "**/**telegraff**.jar"
 }
 
 // Kotlin
