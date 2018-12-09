@@ -60,3 +60,27 @@ $ docker build -t ruslanys/telegraff -f docker/Dockerfile .
 ```
 
 NOTE: Do not forget to build the application before.
+
+### Development
+
+If you are not from the JVM world and don't want to sort out java tools and libraries, 
+this section will help you to understand how to develop inside docker image.
+
+
+1. Build `development` image:
+
+```
+$ docker build -t ruslanys/telegraff:development -f docker/Dockerfile.development .
+```
+
+2. Run this image by mounting local directory and port:
+
+```
+$ docker run -it --name telegraff-development -v $(pwd):/root/application -p 8080:8080 ruslanys/telegraff:development
+```
+
+3. You can reuse created container:
+
+```
+$ docker start -ai telegraff-development
+```
