@@ -24,7 +24,7 @@ Maven:
 <dependency>
     <groupId>me.ruslanys.telegraff</groupId>
     <artifactId>telegraff-starter</artifactId>
-    <version>1.0.0-RC.23</version>
+    <version>1.0.0-RC.25</version>
 </dependency>
 ```
 
