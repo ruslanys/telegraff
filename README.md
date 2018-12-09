@@ -15,7 +15,7 @@ repositories {
 Gradle: 
 
 ```
-compile("me.ruslanys.telegraff:telegraff-starter:1.0.0-RC.23")
+compile("me.ruslanys.telegraff:telegraff-starter:1.0.0-RC.25")
 ```
 
 Maven:
