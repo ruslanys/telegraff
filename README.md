@@ -34,7 +34,7 @@ Maven:
 telegram.access-key=                  # api key
 telegram.mode=                        # polling (default), webhook
 telegram.webhook-base-url=            # required for webhook mode
-telegram.webhook-endpount-url=        # optional
+telegram.webhook-endpoint-url=        # optional
 ```
 
 ## Использование
