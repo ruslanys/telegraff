@@ -21,7 +21,7 @@ bootJar {
 But this won't let you use inner project classes and components from Handlers (see `NameHandler.kts`). 
 And I don't know how to handle this and not sure it is feasible.
 
-So, the only reasonable solution is to avoid "Fat JAR" and Gradle `application` plugin will help with this.
+So, the only reasonable solution is to avoid "Fat JAR" and Gradle `application` plugin will help in it.
 
 ### Building
 
@@ -37,7 +37,7 @@ jar {
 }
 ```
 
-Which let you use Gradle `application` plugin:
+It let you use Gradle `application` plugin:
 
 ```
 $ ./gradlew build
