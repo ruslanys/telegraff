@@ -13,8 +13,6 @@ sourceCompatibility = JavaVersion.VERSION_1_8
 
 repositories {
     mavenCentral()
-    mavenLocal()
-
     maven {
         url "https://dl.bintray.com/ruslanys/maven"
     }
