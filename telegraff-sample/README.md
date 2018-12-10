@@ -59,7 +59,13 @@ $ ./build/install/telegraff-sample/bin/telegraff-sample
 $ docker build -t ruslanys/telegraff -f docker/Dockerfile . 
 ```
 
-NOTE: Do not forget to build the application before.
+**NOTE:** Do not forget to build the application before.
+
+### Dockerimage from sources
+
+```
+$ docker build -t ruslanys/telegraff -f docker/Dockerfile.build .
+```
 
 ### Development
 
