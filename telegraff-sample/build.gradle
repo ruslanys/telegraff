@@ -28,13 +28,6 @@ dependencies {
     // Spring
     compile('me.ruslanys.telegraff:telegraff-starter:1.0.0-RC.25')
 
-    // Kotlin
-    compile("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
-    compile("org.jetbrains.kotlin:kotlin-reflect")
-    compile("org.jetbrains.kotlin:kotlin-script-util")
-    compile("org.jetbrains.kotlin:kotlin-compiler-embeddable")
-    compile("com.fasterxml.jackson.module:jackson-module-kotlin")
-
     // Tests
     testCompile('org.springframework.boot:spring-boot-starter-test')
     testCompile("org.jetbrains.kotlin:kotlin-test")
