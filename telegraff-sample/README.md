@@ -64,7 +64,7 @@ $ docker build -t ruslanys/telegraff -f docker/Dockerfile .
 ### Dockerimage from sources
 
 ```
-$ docker build -t ruslanys/telegraff -f docker/Dockerfile.build .
+$ docker build -t ruslanys/telegraff -f docker/build/Dockerfile .
 ```
 
 ### Development
@@ -76,7 +76,7 @@ this section will help you to understand how to develop inside docker image.
 1. Build `development` image:
 
 ```
-$ docker build -t ruslanys/telegraff:development -f docker/Dockerfile.development .
+$ docker build -t ruslanys/telegraff:development -f docker/development/Dockerfile .
 ```
 
 2. Run this image by mounting local directory and port:
