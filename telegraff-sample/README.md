@@ -2,7 +2,7 @@
 
 ## Gradle
 
-### Far JAR
+### Fat JAR
 
 Unfortunately, some libraries like JRuby or Kotlin embedded compiler have problems while they are a part of "Fat JAR". 
 To deal with this issue, you can [unpack these libraries during runtime](https://docs.spring.io/spring-boot/docs/current/gradle-plugin/reference/html/#packaging-executable-configuring-unpacking).
