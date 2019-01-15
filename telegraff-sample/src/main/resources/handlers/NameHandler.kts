@@ -7,14 +7,14 @@ handler("/name", "имя") {
 
     step<Int>("length") {
         question {
-            MarkdownMessage("Какой длинны?")
+            MarkdownMessage("Какой длнны?")
         }
 
         validation {
             try {
-                it.toInt()
+                Math.abs(it.toInt())
             } catch (e: Exception) {
-                throw ValidationException(e.message ?: "ERROR")
+                throw ValidationException("Укажи число")
             }
         }
     }
