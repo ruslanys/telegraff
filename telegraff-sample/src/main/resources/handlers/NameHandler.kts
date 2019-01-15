@@ -7,7 +7,7 @@ handler("/name", "имя") {
 
     step<Int>("length") {
         question {
-            MarkdownMessage("Какой длнны?")
+            MarkdownMessage("Какой длины?")
         }
 
         validation {
