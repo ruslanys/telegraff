@@ -1,8 +1,5 @@
 plugins {
     id 'application'
-    id 'org.jetbrains.kotlin.jvm' version '1.3.10'
-    id 'org.jetbrains.kotlin.plugin.spring' version '1.3.10'
-    id 'org.springframework.boot' version '2.1.1.RELEASE'
 }
 
 apply plugin: 'io.spring.dependency-management'
@@ -24,7 +21,7 @@ ext {
 
 dependencies {
     // Spring
-    compile('me.ruslanys.telegraff:telegraff-starter:1.0.0-RC.25')
+    compile project(':telegraff-starter')
 
     // Tests
     testCompile('org.springframework.boot:spring-boot-starter-test')
