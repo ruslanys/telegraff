@@ -10,4 +10,4 @@ WORKDIR /root/application
 COPY --from=build /root/application/build/install /root/
 
 EXPOSE 8080
-CMD /root/telegraff-sample/bin/telegraff-sample
+CMD /root/application/bin/application
