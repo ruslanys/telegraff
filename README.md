@@ -15,7 +15,7 @@ repositories {
 Gradle: 
 
 ```
-compile("me.ruslanys.telegraff:telegraff-starter:1.0.0-RC.26")
+compile("me.ruslanys.telegraff:telegraff-starter:1.0.0")
 ```
 
 Maven:
@@ -24,7 +24,7 @@ Maven:
 <dependency>
     <groupId>me.ruslanys.telegraff</groupId>
     <artifactId>telegraff-starter</artifactId>
-    <version>1.0.0-RC.26</version>
+    <version>1.0.0</version>
 </dependency>
 ```
 
