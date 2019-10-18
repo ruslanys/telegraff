@@ -40,6 +40,9 @@ handler("/taxi", "такси") {
 
         // Business logic
 
-        MarkdownMessage("Заказ принят. Поедем из $from в $to. Оплата $paymentMethod.")
+        MarkdownMessage("""
+            Заказ принят от пользователя #${state.chat.id}. 
+            Поедем из $from в $to. Оплата $paymentMethod.
+        """.trimIndent())
     }
 }
