@@ -4,10 +4,7 @@ import me.ruslanys.telegraff.core.dto.TelegramMessage
 import me.ruslanys.telegraff.core.dto.TelegramResponse
 import me.ruslanys.telegraff.core.dto.TelegramUpdate
 import me.ruslanys.telegraff.core.dto.TelegramUser
-import me.ruslanys.telegraff.core.dto.request.TelegramMediaSendRequest
-import me.ruslanys.telegraff.core.dto.request.TelegramMessageSendRequest
-import me.ruslanys.telegraff.core.dto.request.TelegramPhotoSendRequest
-import me.ruslanys.telegraff.core.dto.request.TelegramVoiceSendRequest
+import me.ruslanys.telegraff.core.dto.request.*
 import org.springframework.boot.web.client.RestTemplateBuilder
 import org.springframework.core.ParameterizedTypeReference
 import org.springframework.core.io.ByteArrayResource
@@ -18,7 +15,6 @@ import org.springframework.http.MediaType
 import org.springframework.util.LinkedMultiValueMap
 
 class DefaultTelegramApi(telegramAccessKey: String, restTemplateBuilder: RestTemplateBuilder) : TelegramApi {
-
     private val restTemplate = restTemplateBuilder
             .rootUri("https://api.telegram.org/bot$telegramAccessKey")
             .build()
@@ -64,6 +60,15 @@ class DefaultTelegramApi(telegramAccessKey: String, restTemplateBuilder: RestTem
 
     override fun removeWebhook(): Boolean {
         return setWebhook("")
+    }
+
+    override fun sendRequest(request: TelegramSendRequest): TelegramMessage {
+        return when (request) {
+            is TelegramMessageSendRequest -> sendMessage(request)
+            is TelegramPhotoSendRequest -> sendPhoto(request)
+            is TelegramVoiceSendRequest -> sendVoice(request)
+            else -> throw IllegalStateException("Unsupported request type.")
+        }
     }
 
     override fun sendMessage(request: TelegramMessageSendRequest): TelegramMessage {

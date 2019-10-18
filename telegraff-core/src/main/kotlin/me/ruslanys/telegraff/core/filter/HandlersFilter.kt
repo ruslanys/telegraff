@@ -7,7 +7,10 @@ import me.ruslanys.telegraff.core.dsl.HandlerState
 import me.ruslanys.telegraff.core.dsl.HandlersFactory
 import me.ruslanys.telegraff.core.dto.TelegramChat
 import me.ruslanys.telegraff.core.dto.TelegramMessage
-import me.ruslanys.telegraff.core.dto.request.*
+import me.ruslanys.telegraff.core.dto.request.MarkdownMessage
+import me.ruslanys.telegraff.core.dto.request.TelegramMessageSendRequest
+import me.ruslanys.telegraff.core.dto.request.TelegramParseMode
+import me.ruslanys.telegraff.core.dto.request.TelegramSendRequest
 import me.ruslanys.telegraff.core.exception.ValidationException
 import org.slf4j.LoggerFactory
 import java.util.concurrent.ConcurrentHashMap
@@ -44,7 +47,7 @@ class HandlersFilter(private val telegramApi: TelegramApi, handlersFactory: Hand
             MarkdownMessage("Что-то пошло не так :(")
         }
 
-        sendResponse(message.chat, response)
+        response?.let { sendResponse(message.chat, it) }
     }
 
     fun clearState(chat: TelegramChat) {
@@ -89,16 +92,12 @@ class HandlersFilter(private val telegramApi: TelegramApi, handlersFactory: Hand
         return state.handler.process(state, state.answers)
     }
 
-    private fun sendResponse(chat: TelegramChat, response: TelegramSendRequest?) {
-        if (response != null && response.chatId == 0L) {
+    private fun sendResponse(chat: TelegramChat, response: TelegramSendRequest) {
+        if (response.chatId == 0L) {
             response.chatId = chat.id
         }
 
-        when (response) {
-            is TelegramMessageSendRequest -> telegramApi.sendMessage(response)
-            is TelegramVoiceSendRequest -> telegramApi.sendVoice(response)
-            is TelegramPhotoSendRequest -> telegramApi.sendPhoto(response)
-        }
+        telegramApi.sendRequest(response)
     }
 
     private fun findHandler(message: TelegramMessage): Handler? {
