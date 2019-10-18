@@ -50,7 +50,10 @@ class TaxiHandlerTests : HandlerTests("/taxi") {
                 "paymentMethod" to paymentMethod
         ))
 
-        assertThat(response).isEqualTo(MarkdownMessage("Заказ принят. Поедем из Дом в Работа. Оплата CARD."))
+        assertThat(response).isEqualTo(MarkdownMessage("""
+            Заказ принят от пользователя #-1. 
+            Поедем из Дом в Работа. Оплата CARD.
+        """.trimIndent()))
     }
 
 }
