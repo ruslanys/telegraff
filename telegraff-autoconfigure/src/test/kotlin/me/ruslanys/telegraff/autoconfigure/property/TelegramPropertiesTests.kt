@@ -29,7 +29,7 @@ class TelegramPropertiesTests {
     fun bindValidPropertiesTest() {
         this.context.register(Config::class.java)
         TestPropertyValues.of(
-                "telegram.accessKey:key", "telegram.mode:webhook", "telegram.webhookBaseUrl:https://localhost")
+                "telegram.accessKey:key", "telegram.mode:webhook", "telegram.webhook.baseUrl:https://localhost")
                 .applyTo(this.context)
 
         this.context.refresh()
@@ -38,14 +38,14 @@ class TelegramPropertiesTests {
 
         assertThat(properties.accessKey).isEqualTo("key")
         assertThat(properties.mode).isEqualTo(TelegramMode.WEBHOOK)
-        assertThat(properties.webhookBaseUrl).isEqualTo("https://localhost")
+        assertThat(properties.webhook.baseUrl).isEqualTo("https://localhost")
     }
 
     @Test
     fun bindEmptyKey() {
         this.context.register(Config::class.java)
         TestPropertyValues.of(
-                "telegram.accessKey:", "telegram.mode:webhook", "telegram.webhookBaseUrl:https://localhost")
+                "telegram.accessKey:", "telegram.mode:webhook", "telegram.webhook.baseUrl:https://localhost")
                 .applyTo(this.context)
         this.thrown.expect(ConfigurationPropertiesBindException::class.java)
 
@@ -56,7 +56,7 @@ class TelegramPropertiesTests {
     fun bindInvalidMode() {
         this.context.register(Config::class.java)
         TestPropertyValues.of(
-                "telegram.accessKey:key", "telegram.mode:ASD", "telegram.webhookBaseUrl:https://localhost")
+                "telegram.accessKey:key", "telegram.mode:ASD", "telegram.webhook.baseUrl:https://localhost")
                 .applyTo(this.context)
         this.thrown.expect(ConfigurationPropertiesBindException::class.java)
 
@@ -78,7 +78,7 @@ class TelegramPropertiesTests {
     fun bindWebhookBaseUrlWithHttp() {
         this.context.register(Config::class.java)
         TestPropertyValues.of(
-                "telegram.accessKey:key", "telegram.mode:webhook", "telegram.webhookBaseUrl:http://localhost")
+                "telegram.accessKey:key", "telegram.mode:webhook", "telegram.webhook.baseUrl:http://localhost")
                 .applyTo(this.context)
 
         this.thrown.expect(ConfigurationPropertiesBindException::class.java)

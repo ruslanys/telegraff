@@ -23,12 +23,13 @@ class TelegramPropertiesValidator : Validator {
         }
 
         if (properties.mode == TelegramMode.WEBHOOK) {
-            val webhookBaseUrl = properties.webhookBaseUrl
-            if (webhookBaseUrl == null || webhookBaseUrl.isEmpty()) {
-                errors.rejectValue("webhookBaseUrl", "webhookBaseUrl.empty",
+            val webhookProperties = properties.webhook
+            val baseUrl = webhookProperties.baseUrl
+            if (baseUrl.isNullOrEmpty()) {
+                errors.rejectValue("webhook.baseUrl", "webhook.baseUrl.empty",
                         "You have to set Webhook Base URL with Webhook mode.")
-            } else if (!webhookBaseUrl.startsWith("https://")) {
-                errors.rejectValue("webhookBaseUrl", "webhookBaseUrl.https",
+            } else if (!baseUrl.startsWith("https://")) {
+                errors.rejectValue("webhook.baseUrl", "webhook.baseUrl.https",
                         "You have to set HTTPS protocol at Webhook base URL.")
             }
 

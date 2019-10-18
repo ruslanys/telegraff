@@ -19,16 +19,9 @@ class TelegramProperties {
     var mode = TelegramMode.POLLING
 
     /**
-     * Webhook base URL.
-     * For example, https://localhost:8443.
+     * Webhook properties.
      */
-    var webhookBaseUrl: String? = null
-
-    /**
-     * Webhook endpoint url.
-     * For example, /telegram.
-     */
-    var webhookEndpointUrl: String = "/telegram/" + UUID.randomUUID().toString()
+    var webhook: WebhookProperties = WebhookProperties()
 
     /**
      * Path where handlers declaration stored.
@@ -41,9 +34,22 @@ class TelegramProperties {
     var unresolvedFilter = UnresolvedMessageFilterProperties()
 
 
-    fun getWebhookUrl(): String = "$webhookBaseUrl$webhookEndpointUrl"
+    fun getWebhookUrl(): String = "${webhook.baseUrl}${webhook.endpointUrl}"
 
 
+    class WebhookProperties {
+        /**
+         * Webhook base URL.
+         * For example, https://localhost:8443.
+         */
+        var baseUrl: String? = null
+
+        /**
+         * Webhook endpoint url.
+         * For example, /telegram.
+         */
+        var endpointUrl: String = "/telegram/" + UUID.randomUUID().toString()
+    }
 
     class UnresolvedMessageFilterProperties {
         /**
