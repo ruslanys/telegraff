@@ -37,6 +37,7 @@ class TaxiHandlerTests : HandlerTests("/taxi") {
 
         val answer = step.validation("картой")
         assertThat(answer).isNotNull
+        assertThat(answer).isInstanceOf(Enum::class.java)
     }
 
     @Test
