@@ -39,7 +39,6 @@ class TelegramPollingClient(
 
     private inner class Client : Thread("PollingClient") {
 
-        @Volatile
         private var offset: Long = 0
 
         override fun run() {
