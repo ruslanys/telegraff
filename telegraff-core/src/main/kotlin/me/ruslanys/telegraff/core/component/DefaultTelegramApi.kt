@@ -4,10 +4,7 @@ import me.ruslanys.telegraff.core.dto.TelegramMessage
 import me.ruslanys.telegraff.core.dto.TelegramResponse
 import me.ruslanys.telegraff.core.dto.TelegramUpdate
 import me.ruslanys.telegraff.core.dto.TelegramUser
-import me.ruslanys.telegraff.core.dto.request.TelegramMediaSendRequest
-import me.ruslanys.telegraff.core.dto.request.TelegramMessageSendRequest
-import me.ruslanys.telegraff.core.dto.request.TelegramPhotoSendRequest
-import me.ruslanys.telegraff.core.dto.request.TelegramVoiceSendRequest
+import me.ruslanys.telegraff.core.dto.request.*
 import org.springframework.boot.web.client.RestTemplateBuilder
 import org.springframework.core.ParameterizedTypeReference
 import org.springframework.core.io.ByteArrayResource
@@ -121,6 +118,16 @@ class DefaultTelegramApi(telegramAccessKey: String, restTemplateBuilder: RestTem
         )
 
         return entity.body!!.result!!
+    }
+
+    override fun sendChatAction(request: TelegramChatActionRequest): Boolean {
+        val response = restTemplate.exchange(
+                "/sendChatAction",
+                HttpMethod.POST,
+                HttpEntity(request),
+                object : ParameterizedTypeReference<TelegramResponse<Boolean>>() {}
+        )
+        return response.body!!.result!!
     }
 
     private fun createFormData(request: TelegramMediaSendRequest): LinkedMultiValueMap<String, Any> =
