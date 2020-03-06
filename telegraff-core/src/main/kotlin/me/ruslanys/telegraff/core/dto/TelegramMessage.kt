@@ -17,6 +17,9 @@ data class TelegramMessage(
         @JsonProperty("chat")
         val chat: TelegramChat,
 
+        @JsonProperty("contact")
+        val contact: TelegramContact?,
+
         @JsonProperty("text")
         val text: String?
 
